@@ -81,7 +81,7 @@ npm run build
 ## 🔧 Environment Variables
 
 ```env
-VITE_API_URL=https://your-backend.onrender.com/api
+VITE_API_URL=https://planora-backend-f2v7.onrender.com/api
 VITE_APP_NAME=Planora
 ```
 
@@ -94,9 +94,9 @@ Password: demo1234
 
 ## 🔗 Links
 
-- **Live Demo**: [https://planora-app.netlify.app](https://planora-app.netlify.app)
-- **Backend API**: [https://planora-api.onrender.com](https://planora-api.onrender.com)
-- **Video Walkthrough**: [YouTube Link]
+- **Live Demo**: [https://planora-frontend-project.netlify.app/login](https://planora-frontend-project.netlify.app/login)  
+- **Backend API**: [https://planora-backend-f2v7.onrender.com](https://planora-backend-f2v7.onrender.com)  
+- **Video Walkthrough**: [Watch here](https://drive.google.com/drive/folders/1I6OhVlhrZc9t98r2kwh1ZDuT3MODVlzR?usp=sharing)
 
 ## ☁️ Deployment (Netlify)
 

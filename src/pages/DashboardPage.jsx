@@ -90,7 +90,7 @@ export default function DashboardPage() {
           { icon: AlertCircle, label: 'Overdue', value: taskStats?.overdue || 0, color: 'rose', link: '/tasks' },
           { icon: Target, label: 'Active Goals', value: goals?.filter(g => g.status === 'active').length || 0, color: 'amber', link: '/goals' },
         ].map(({ icon: Icon, label, value, color, link }) => (
-          <Link key={label} to={link} className="stat-card group cursor-pointer">
+          <Link key={label} to={link} className="stat-card cursor-pointer">
             <div className={`inline-flex p-2 rounded-lg bg-${color}-500/15 mb-3`}>
               <Icon size={18} className={`text-${color}-400`} />
             </div>
