@@ -100,14 +100,6 @@ export default function LoginPage() {
               </Link>
             </p>
           </div>
-
-          {/* Demo credentials */}
-          <div className="mt-4 p-3 rounded-xl bg-violet-600/10 border border-violet-500/20">
-            <p className="text-xs text-muted-foreground text-center flex items-center justify-center gap-1">
-              <Sparkles size={12} className="text-violet-400" />
-              Demo: demo@planora.app / demo1234
-            </p>
-          </div>
         </div>
       </div>
     </div>
