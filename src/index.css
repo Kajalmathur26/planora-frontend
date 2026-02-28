@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=cabinet-grotesk@400,500,700,800&display=swap');
+
+@layer base {
+  :root {
+    --background: 224 20% 6%;
+    --foreground: 210 40% 95%;
+    --card: 224 20% 9%;
+    --card-foreground: 210 40% 95%;
+    --popover: 224 20% 9%;
+    --popover-foreground: 210 40% 95%;
+    --primary: 261 83% 68%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 224 20% 13%;
+    --secondary-foreground: 210 40% 95%;
+    --muted: 224 20% 13%;
+    --muted-foreground: 215 20% 55%;
+    --accent: 261 83% 68%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 224 20% 15%;
+    --input: 224 20% 13%;
+    --ring: 261 83% 68%;
+    --radius: 0.75rem;
+  }
+
+  .theme-light {
+    --background: 0 0% 98%;
+    --foreground: 224 20% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 20% 10%;
+    --secondary: 220 14% 95%;
+    --secondary-foreground: 224 20% 10%;
+    --muted: 220 14% 95%;
+    --muted-foreground: 215 20% 45%;
+    --border: 220 14% 90%;
+    --input: 220 14% 92%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Cabinet Grotesk', 'DM Sans', sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Clash Display', 'DM Sans', sans-serif;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card/50 backdrop-blur-xl border border-white/5 rounded-2xl;
+  }
+
+  .glass-card-hover {
+    @apply glass-card hover:bg-card/70 hover:border-white/10 transition-all duration-300;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent;
+  }
+
+  .glow-border {
+    @apply border border-violet-500/30 ;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
+  }
+
+  .neon-button {
+  @apply bg-violet-600 hover:bg-violet-500 text-white font-semibold rounded-xl px-6 py-2.5 transition-all duration-300 active:scale-95;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+}
+
+.neon-button:hover {
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
+}
+
+  .sidebar-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all duration-200 cursor-pointer;
+  }
+
+  .sidebar-item-active {
+    @apply sidebar-item bg-violet-600/20 text-violet-300 border border-violet-500/20;
+  }
+
+  .stat-card {
+    @apply glass-card p-5 hover:border-violet-500/20 transition-all duration-300;
+  }
+
+  .input-field {
+    @apply bg-secondary border border-border rounded-xl px-4 py-2.5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200 w-full;
+  }
+
+  .mood-emoji {
+    @apply text-3xl cursor-pointer transition-all duration-200 hover:scale-125 active:scale-95;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.5);
+}
+
+/* React Quill overrides */
+.ql-toolbar.ql-snow {
+  background: hsl(var(--secondary)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+.ql-container.ql-snow {
+  background: hsl(var(--secondary)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-top: none !important;
+  border-radius: 0 0 12px 12px !important;
+  min-height: 200px;
+}
+
+.ql-editor {
+  color: hsl(var(--foreground)) !important;
+  font-family: inherit !important;
+}
+
+.ql-stroke {
+  stroke: hsl(var(--muted-foreground)) !important;
+}
+
+.ql-fill {
+  fill: hsl(var(--muted-foreground)) !important;
+}
+
+/* Animations */
+.animate-in {
+  animation: slide-up 0.4s ease-out;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.page-transition {
+  animation: slide-up 0.35s ease-out;
+}
