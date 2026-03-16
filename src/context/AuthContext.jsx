@@ -15,18 +15,32 @@ export const AuthProvider = ({ children }) => {
       setUser(JSON.parse(savedUser));
       // Verify token is still valid
       authService.getProfile()
-        .then(res => setUser(res.data.user))
+        .then(res => {
+          setUser(res.data.user);
+          setLoading(false);
+        })
         .catch(() => {
           localStorage.removeItem('planora_token');
           localStorage.removeItem('planora_user');
           setUser(null);
+          setLoading(false);
         });
+    } else {
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   const login = async (email, password) => {
     const res = await authService.login({ email, password });
+    const { token, user } = res.data;
+    localStorage.setItem('planora_token', token);
+    localStorage.setItem('planora_user', JSON.stringify(user));
+    setUser(user);
+    return user;
+  };
+
+  const googleLogin = async (credential) => {
+    const res = await authService.googleLogin({ token: credential });
     const { token, user } = res.data;
     localStorage.setItem('planora_token', token);
     localStorage.setItem('planora_user', JSON.stringify(user));
@@ -56,7 +70,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, updateUser }}>
+    <AuthContext.Provider value={{ user, loading, login, googleLogin, register, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

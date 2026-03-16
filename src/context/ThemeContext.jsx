@@ -11,8 +11,21 @@ export const ThemeProvider = ({ children }) => {
     localStorage.setItem('planora_theme', theme);
   }, [theme]);
 
+  const ACCENT_COLORS = {
+    violet: '261 83% 68%',
+    indigo: '239 84% 67%',
+    blue: '217 91% 60%',
+    emerald: '160 84% 39%',
+    rose: '346 87% 60%',
+    amber: '45 93% 47%'
+  };
+
   useEffect(() => {
     localStorage.setItem('planora_accent', accent);
+    const color = ACCENT_COLORS[accent] || ACCENT_COLORS.violet;
+    document.documentElement.style.setProperty('--primary', color);
+    document.documentElement.style.setProperty('--accent', color);
+    document.documentElement.style.setProperty('--ring', color);
   }, [accent]);
 
   const toggleTheme = () => setTheme(t => t === 'dark' ? 'light' : 'dark');

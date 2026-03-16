@@ -4,7 +4,7 @@
 
 ## 🌟 Project Description
 
-Planora is a full-featured personal productivity platform that combines task management, calendar, journaling, goal tracking, habit building, and mood logging into one beautiful dark-themed interface. Powered by Google Gemini AI for smart insights and suggestions.
+Planora is a full-featured personal productivity platform that combines task management, calendar, journaling, goal tracking, habit building, and mood logging, finance tracker ,focus mode into one beautiful dark-themed interface. Powered by Google Gemini AI for smart insights and suggestions.
 
 ## ✨ Features
 
@@ -28,6 +28,8 @@ Planora is a full-featured personal productivity platform that combines task man
 - **Recharts** — Data visualization
 - **date-fns** — Date utilities
 - **react-hot-toast** — Notifications
+-**@dnd-kit/core**— Drag-and-drop interactions
+-**@react-oauth/google**— Google authentication   
 
 ## 📁 Project Structure
 
@@ -51,9 +53,15 @@ src/
 ├── context/
 │   ├── AuthContext.jsx
 │   └── ThemeContext.jsx
+├── hooks/ 
+│   ├── useLocalStorage.js 
+│   └── useNotifications.js
 ├── services/
 │   ├── api.js
 │   └── index.js
+├── utils/ 
+|   ├── helpers.js 
+|    └── notifications.js 
 └── App.jsx
 ```
 
@@ -82,6 +90,7 @@ npm run build
 
 ```env
 VITE_API_URL=https://planora-backend-f2v7.onrender.com/api
+VITE_GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
 VITE_APP_NAME=Planora
 ```
 
@@ -104,6 +113,6 @@ Password: demo1234
 2. Connect repo to [Netlify](https://netlify.com)
 3. Build command: `npm run build`
 4. Publish directory: `dist`
-5. Add environment variable `VITE_API_URL` in Netlify dashboard
+5. Add environment variable `VITE_API_URL`,'VITE_GOOGLE_CLIENT_ID' in Netlify dashboard
 6. Add `_redirects` file: `/* /index.html 200`
 7. Deploy!

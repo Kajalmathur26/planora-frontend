@@ -83,13 +83,13 @@ export default function AIAssistantPage() {
       {/* Header */}
       <div className="flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-[0_0_20px_rgba(139,92,246,0.4)] animate-[float_3s_ease-in-out_infinite]">
+          <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center shadow-[0_0_20px_var(--primary-glow)] animate-[float_3s_ease-in-out_infinite]">
             <Sparkles size={18} className="text-white" />
           </div>
           <div>
             <h1 className="font-display text-xl font-bold text-foreground flex items-center gap-2">
               Plora AI
-              <span className="text-xs px-2 py-0.5 rounded-full bg-violet-600/20 text-violet-300 border border-violet-500/20">Gemini</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-primary/20 text-primary border border-primary/20">Gemini</span>
             </h1>
             <p className="text-xs text-muted-foreground">Your personal productivity assistant</p>
           </div>
@@ -106,7 +106,7 @@ export default function AIAssistantPage() {
             key={action.label}
             onClick={() => sendMessage(action.message)}
             disabled={loading}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-secondary hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-all text-xs whitespace-nowrap border border-border hover:border-violet-500/30 flex-shrink-0"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-secondary hover:bg-secondary/80 text-muted-foreground hover:text-foreground transition-all text-xs whitespace-nowrap border border-border hover:border-primary/30 flex-shrink-0"
           >
             <span>{action.icon}</span>
             {action.label}
@@ -119,7 +119,7 @@ export default function AIAssistantPage() {
         {messages.map(msg => (
           <div key={msg.id} className={`flex gap-3 ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in`}>
             {msg.role === 'assistant' && (
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-[0_0_12px_rgba(139,92,246,0.3)]">
+              <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center flex-shrink-0 mt-0.5 shadow-[0_0_12px_var(--primary-glow)]">
                 <Sparkles size={14} className="text-white" />
               </div>
             )}
@@ -127,10 +127,10 @@ export default function AIAssistantPage() {
             <div className={`max-w-[75%] ${msg.role === 'user' ? 'items-end' : 'items-start'} flex flex-col gap-1`}>
               <div className={`p-3.5 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap
                 ${msg.role === 'user'
-                  ? 'bg-violet-600 text-white rounded-tr-sm shadow-[0_0_15px_rgba(139,92,246,0.3)]'
+                  ? 'bg-primary text-white rounded-tr-sm shadow-[0_0_15px_var(--primary-glow)]'
                   : msg.isError
                     ? 'glass-card border border-rose-500/30 text-foreground/80 rounded-tl-sm'
-                    : 'glass-card border border-white/5 text-foreground/90 rounded-tl-sm'
+                    : 'glass-card border border-border text-foreground/90 rounded-tl-sm'
                 }`}>
                 {msg.content}
               </div>
@@ -149,13 +149,13 @@ export default function AIAssistantPage() {
 
         {loading && (
           <div className="flex gap-3 justify-start animate-in">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center flex-shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
               <Sparkles size={14} className="text-white" />
             </div>
-            <div className="glass-card border border-white/5 p-3.5 rounded-2xl rounded-tl-sm">
+            <div className="glass-card border border-border p-3.5 rounded-2xl rounded-tl-sm">
               <div className="flex gap-1">
                 {[0, 150, 300].map(delay => (
-                  <div key={delay} className="w-2 h-2 rounded-full bg-violet-400 animate-bounce" style={{ animationDelay: `${delay}ms` }} />
+                  <div key={delay} className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: `${delay}ms` }} />
                 ))}
               </div>
             </div>
@@ -179,7 +179,7 @@ export default function AIAssistantPage() {
           <button
             onClick={() => sendMessage()}
             disabled={!input.trim() || loading}
-            className="w-10 h-10 rounded-xl bg-violet-600 hover:bg-violet-500 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-all hover:shadow-[0_0_15px_rgba(139,92,246,0.4)] active:scale-95 flex-shrink-0"
+            className="w-10 h-10 rounded-xl bg-primary hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-all hover:shadow-[0_0_15px_var(--primary-glow)] active:scale-95 flex-shrink-0"
           >
             <Send size={16} className="text-white" />
           </button>

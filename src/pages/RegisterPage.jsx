@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Eye, EyeOff, ArrowRight, Zap } from 'lucide-react';
+import { GoogleLogin } from '@react-oauth/google';
 import toast from 'react-hot-toast';
 
 export default function RegisterPage() {
-  const { register } = useAuth();
+  const { register, googleLogin } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -27,14 +28,29 @@ export default function RegisterPage() {
     }
   };
 
+  const handleGoogleSuccess = async (credentialResponse) => {
+    toast.loading('Connecting to Google...', { id: 'google-auth' });
+    try {
+      await googleLogin(credentialResponse.credential);
+      toast.success('Account created with Google! 🚀', { id: 'google-auth' });
+      navigate('/dashboard');
+    } catch (err) {
+      toast.error(err.response?.data?.error || 'Google registration failed', { id: 'google-auth' });
+    }
+  };
+
+  const handleGoogleError = () => {
+    toast.error('Google Login Failed', { id: 'google-auth' });
+  };
+
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
       <div className="absolute inset-0 bg-mesh-gradient opacity-40 pointer-events-none" />
-      <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="w-full max-w-md relative animate-in">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-600 shadow-[0_0_40px_rgba(139,92,246,0.4)] mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary shadow-[0_0_40px_var(--primary-glow)] mb-4">
             <Zap className="text-white" size={28} />
           </div>
           <h1 className="font-display text-3xl font-bold text-foreground mb-1">Start your journey</h1>
@@ -100,10 +116,29 @@ export default function RegisterPage() {
             </button>
           </form>
 
+          <div className="mt-6 relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-border/50"></span>
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+            </div>
+          </div>
+
+          <div className="w-full mt-6 flex justify-center">
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleError}
+              useOneTap
+              theme="filled_black"
+              shape="pill"
+            />
+          </div>
+
           <div className="mt-6 text-center">
             <p className="text-muted-foreground text-sm">
               Already have an account?{' '}
-              <Link to="/login" className="text-violet-400 hover:text-violet-300 font-medium transition-colors">
+              <Link to="/login" disable-tw-text-color="true" className="text-primary hover:opacity-80 font-medium transition-colors">
                 Sign in
               </Link>
             </p>

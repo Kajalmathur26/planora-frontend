@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Fira+Code&family=Caveat&family=Inter:wght@400;500;700&display=swap');
 @import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=cabinet-grotesk@400,500,700,800&display=swap');
 
 @tailwind base;
@@ -28,6 +29,8 @@
     --input: 224 20% 13%;
     --ring: 261 83% 68%;
     --radius: 0.75rem;
+    --primary-glow: hsl(var(--primary) / 0.3);
+    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 
   .theme-light {
@@ -39,7 +42,7 @@
     --secondary-foreground: 224 20% 10%;
     --muted: 220 14% 95%;
     --muted-foreground: 215 20% 45%;
-    --border: 220 14% 90%;
+    --border: 220 14% 85%;
     --input: 220 14% 92%;
   }
 }
@@ -54,8 +57,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-family: 'Cabinet Grotesk', 'DM Sans', sans-serif;
+    @apply bg-background text-foreground font-sans;
     font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
   }
@@ -66,13 +68,15 @@
   h4,
   h5,
   h6 {
-    font-family: 'Clash Display', 'DM Sans', sans-serif;
+    @apply font-display;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-card/50 backdrop-blur-xl border border-white/5 rounded-2xl;
+    /* Strengthened border and shadow for better "flash card" visibility */
+    @apply bg-card/90 backdrop-blur-xl border-2 border-border/80 rounded-2xl;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2), 0 4px 10px -5px rgba(0, 0, 0, 0.1);
   }
 
   .glass-card-hover {
@@ -80,42 +84,66 @@
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent;
   }
 
   .glow-border {
-    @apply border border-violet-500/30 ;
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
+    @apply border border-primary/30;
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.15);
   }
 
   .neon-button {
-  @apply bg-violet-600 hover:bg-violet-500 text-white font-semibold rounded-xl px-6 py-2.5 transition-all duration-300 active:scale-95;
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
-}
+    @apply bg-primary hover:opacity-90 text-primary-foreground font-semibold rounded-xl px-6 py-2.5 transition-all duration-300 active:scale-95;
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
+  }
 
-.neon-button:hover {
-  box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
-}
+  .neon-button:hover {
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.6);
+  }
 
   .sidebar-item {
     @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all duration-200 cursor-pointer;
   }
 
   .sidebar-item-active {
-    @apply sidebar-item bg-violet-600/20 text-violet-300 border border-violet-500/20;
+    @apply sidebar-item bg-primary/20 text-primary border border-primary/20;
   }
 
   .stat-card {
-    @apply glass-card p-5 hover:border-violet-500/20 transition-all duration-300;
+    /* Adds a subtle hover lift for a professional feel */
+    @apply glass-card p-5 hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10;
   }
 
   .input-field {
-    @apply bg-secondary border border-border rounded-xl px-4 py-2.5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200 w-full;
+    @apply bg-secondary border border-border rounded-xl px-4 py-2.5 text-foreground placeholder:text-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-200 w-full;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .button-accent {
+    @apply bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-all font-medium rounded-xl px-4 py-2;
   }
 
   .mood-emoji {
     @apply text-3xl cursor-pointer transition-all duration-200 hover:scale-125 active:scale-95;
   }
+}
+
+/* Global native element overrides */
+button, select, input, textarea {
+  transition: all 0.2s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  @apply ring-2 ring-primary/30 border-primary/50;
+}
+
+/* Interactive Box Shadows using accent labels */
+.glass-card-accent {
+  @apply glass-card border-primary/20 shadow-[0_0_15px_hsl(var(--primary)/0.05)];
+}
+
+.glass-card-accent:hover {
+  @apply border-primary/40 shadow-[0_0_25px_hsl(var(--primary)/0.1)];
 }
 
 /* Scrollbar */
@@ -128,12 +156,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.3);
+  background: hsl(var(--primary) / 0.3);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.5);
+  background: hsl(var(--primary) / 0.5);
 }
 
 /* React Quill overrides */
@@ -191,6 +219,44 @@
   50% {
     transform: translateY(-8px);
   }
+}
+
+/* Resizable images for Journal */
+[contenteditable] img {
+  display: block;
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 12px 0;
+  border: 1px solid var(--border);
+  transition: box-shadow 0.3s;
+  cursor: nwse-resize;
+  resize: both;
+  overflow: auto;
+}
+
+[contenteditable] img:active {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 4px;
+}
+
+/* Global Accent Color Swell for sliders and browser-native elements */
+input[type="range"] {
+  accent-color: hsl(var(--primary));
+}
+
+input[type="checkbox"], 
+input[type="radio"] {
+  accent-color: hsl(var(--primary));
+  @apply h-4 w-4 rounded;
+}
+
+select {
+  @apply bg-secondary text-foreground rounded-lg border-border;
+  accent-color: hsl(var(--primary));
+}
+
+.prose-journal h1, .prose-journal h2, .prose-journal h3 {
+  @apply text-foreground font-display font-bold;
 }
 
 .page-transition {
